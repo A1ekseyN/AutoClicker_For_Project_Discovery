@@ -1,14 +1,24 @@
 # AutoClicker for Project Discovery in Eve Online
-# Version - 0.0.2
+# Version - 0.0.3
 # Работает ноутбуке, с персонажами: Allehandro, Anna de Amarr, Elise Jackson, Suzanne Jackson, Blondie Loo
 
 # Omega clone - 200 заданий в день
-# Alpha clone - ??? заданий в день
+# Alpha clone - 100 заданий в день (Нужно уточнить число)
 
 # Tasks (Фичи):
 # Дописать остановку выполнения скрипта
 # Возможность по хоткею добавлять таски в задания
 # GUI интерфейс (Не понятно или он сейчас нужен)
+# Функционал, который запоминает время обнуления Project Discovery
+
+# Идеи для бота:
+# Авто-подскан каждые 3-5 секунд, по горячей кнопке.
+
+# 1. Allehandro - приверно - 14.29 (21.03.2022)
+# 1. Anna de Amarr - Нет 1.000.000 skill point
+# 2. Elise Jackson - 2Do
+# 2. Suzane Jackson - < 914k exp
+# 3. Blondie Loo - 2Do
 
 import time
 import threading
@@ -24,7 +34,7 @@ mouse = Controller()
 # Там где показан счёт. То, есть по сути 1 проект дисковери нужно пройти.
 #####################################
 
-counter = 1
+counter = 55 #// Allehandor - 199 // Anna de Amarr --- // Elise Jackson - 0 // Suzane Jackson - 55 (-) // Blondie Loo - 99
 isk_for_task = (counter * 99000)
 
 task_time_one = timedelta(minutes=0, seconds=14.2)
@@ -67,55 +77,55 @@ while counter > 0: # Счётчик цикла
     mouse.click(Button.left, 1)
 
     ##### First border #####
-    time.sleep(0.5)
+    time.sleep(2.4)
     mouse.position = (255, 277)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (257, 539)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (682, 535)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (666, 292)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (255, 277)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
     ##### Second border #####
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (257, 550)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (260, 742)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (715, 738)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (711, 549)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.position = (257, 550)
-    time.sleep(0.5)
+    time.sleep(0.4)
     mouse.click(Button.left, 1)
 
     ##### Click to Procced button #####
