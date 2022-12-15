@@ -1,5 +1,5 @@
 # AutoClicker for Project Discovery in Eve Online
-# Version - 0.0.3b
+# Version - 0.0.3c
 
 # Omega clone - 200 заданий в день
 # Alpha clone - 100 заданий в день (Нужно уточнить число)
