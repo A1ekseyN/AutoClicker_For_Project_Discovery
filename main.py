@@ -1,10 +1,12 @@
+print('Loading...')
 # AutoClicker for Project Discovery in Eve Online
-# Version - 0.0.3g
+# Version - 0.0.4a
 
 
 import time
 from pynput.mouse import Button, Controller
-from datetime import timedelta
+from datetime import datetime, timedelta
+
 
 mouse = Controller()
 
@@ -13,7 +15,7 @@ def counter_iteration():
     # Запрос на кол-во циклов.
     global counter
     try:
-        counter = int(input("Сколько циклов выполнить?\n>>> "))
+        counter = int(input("\nСколько циклов выполнить?\n>>> "))
     except:
         print('Лучше ввести число.')
         counter_iteration()
@@ -25,7 +27,7 @@ isk_for_task = (counter * 99000)
 task_time_one = timedelta(minutes=0, seconds=12.356)
 task_time_total = task_time_one * counter
 
-print(f"Предположительный доход за {counter} заданий {isk_for_task:,.0f} isk.")
+print(f"\nПредположительный доход за {counter} заданий {isk_for_task:,.0f} isk.")
 print(f"Время на выполнение задания: {task_time_total}.")
 
 
@@ -126,6 +128,7 @@ def project_discovery(counter=counter):
         # Конец цикла и одного задания Project Discovery
         print(f"\nОсталось: {counter} циклов.")
         print(f'Время выполнения скрипта: {time.time() - start_time:,.2f} сек.')
+        print(f'Осталось времени: {task_time_total - timedelta(seconds=12.356)}.')
 
         counter -= 1
 
@@ -134,3 +137,16 @@ project_discovery()
 
 print("\n--- Конец выполнения программы. ---")
 print(f'Выполнено за: {time.time() - start_time:,.2f} сек.')
+
+
+def repeat():
+    # Повтор выполнения программы.
+    ask = input('\nПовторить ход выполнения программы? (Press any key) or (q or Q for exit).\n>>> ')
+    if ask == 'й' or ask == 'q' or ask == 'Q' or ask == 'Й':
+        pass
+    else:
+        counter_iteration()
+        timer_start()
+        repeat()
+
+repeat()        # Повтор выполнения скрипта.
