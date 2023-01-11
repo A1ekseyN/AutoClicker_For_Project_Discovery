@@ -1,0 +1,83 @@
+Version: 0.0.1wh
+- Fix
+
+Version: 0.0.1wg
+- Disable Multispectrum
+
+Version: 0.0.1wf
+- Fixes
+
+Version: 0.0.1wb
+- Hot fix Multispectrum. Enable after warp.
+
+Version: 0.0.1wb
+- Hot fix
+
+Version: 0.0.1w
+- Hot fix
+
+Version: 0.0.1u
+- Change name to Eve Bot
+- Add start alert message (OffLine)
+- Add Active Multispectrum start after warp.
+- Add warp to Guristas Den
+- Small changes
+- Refactor
+
+
+Version: 0.0.1q
+- Add Error message
+- Back Change Next Gate warp system
+
+
+Version: 0.0.1o
+- Warp next anomaly bug hot fix
+
+
+Version: 0.0.1n
+- Warp next animaly bug hot fix
+
+
+Version: 0.0.1m
+- Small changes
+- Reduce press ('f')
+- Guristas Green Anomaly Priority
+- Guristas Warp to Green Anomaly from context menu.
+- Chenge Next Gate algoritm
+
+
+Version: 0.0.1l (Stable ???)
+- Optimization region of opencv view and search enemy
+- Add press 'f' in Frigate, Destroyer, Cruiser
+- Some small fixes
+- Add Countdown Timer
+- Add Guns reload, when Ship warp at Next Gate.
+
+
+Version: 0.0.1k
+- Bug fix
+
+
+Version: 0.0.1j
+- Add lock Cruiser Box Red
+- Add scan enemy ships and HP pictograms.
+- Add Pixel Region when scaning frigates and HP
+
+
+Version: 0.0.1h
+- Change time for press 'f' from 5 to 6 sec
+- Warp bug fix
+
+
+Version: 0.0.1g
+- Change algoritm for enemy search (Destroyer, Cruiser, Tower)
+- Change algoritm for check enemy in space (Destroyer, Cruiser, Tower)
+- Change Warp algoritm. Now use while for check Warping status.
+
+
+Version: 0.0.1f
+- Change time press 'f' to 7 sec
+- Уменьшено время ожидания дронов с 15-ти до 10-ти сек
+- Add Destroyer detect
+- Add Tower detect
+- Add additional check fo Destroyer, Cruiser and Tower

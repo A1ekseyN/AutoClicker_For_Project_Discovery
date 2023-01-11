@@ -1,4 +1,0 @@
-Date: 06.01.2023
-Version: 0.0.4a
-- Add repeat function
-- Add end timer
