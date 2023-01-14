@@ -1,16 +1,17 @@
-# Version 0.0.1wh
-print('Version: 0.0.1wh')
+# Version 0.0.1yf
+print('Version: 0.0.1yf')
 
 
 import os
 import pyautogui
 from datetime import datetime, timedelta
-from abyss import *
+#from abyss import *
 from drones import *
 from functions import *
 from functions_developer import start_script_timer
 from pictures import *
 from settings import *
+from warp import *
 
 
 #pyautogui.alert('For Start script press OK.')
@@ -238,7 +239,7 @@ def warp_next_anomaly():
             if cnt == 6:
                 print('-- Break Warp !!! ---')
                 break
-        print('Landing...\n')
+#        print('Landing...\n')
     else:
         print('\n- No anomalies in space.')
         pyautogui.sleep(1)
@@ -254,6 +255,8 @@ def warp_anomaly_context_menu():
         pyautogui.moveTo(warp_anomaly_0_png)
         pyautogui.sleep(0.2)
         pyautogui.click()
+        print('\nWait 10 sec after start warping.')
+        pyautogui.sleep(10)
     except:
         print('No warp button.')
         check_battle()
@@ -279,32 +282,12 @@ def warp_green_anomaly_context_menu():
             print(anomaly)
             pyautogui.moveTo(anomaly)
             warp_anomaly_context_menu()
+#            print('\nWait 10 sec after start warping.')
+#            pyautogui.sleep(10)
             break
     print(f'--- Guristas Anomaly Search: {datetime.now().timestamp() - start_time:,.2f} sec.')
     if not anomaly:
         next_gate()
-
-#    if guristas_hideaway_new:
-#        pyautogui.moveTo(guristas_hideaway_new)
-#        warp_anomaly_context_menu()
-#    elif guristas_hideaway:
-#        pyautogui.moveTo(guristas_hideaway)
-#        warp_anomaly_context_menu()
-#    elif guristas_refuge_new:
-#        pyautogui.moveTo(guristas_refuge_new)
-#        warp_anomaly_context_menu()
-#    elif guristas_refuge:
-#        pyautogui.moveTo(guristas_refuge)
-#        warp_anomaly_context_menu()
-#    elif guristas_den_new:
-#        pyautogui.moveTo(guristas_den_new)
-#        warp_anomaly_context_menu()
-#    elif guristas_den:
-#        pyautogui.moveTo(guristas_den)
-#        warp_anomaly_context_menu()
-#    else:
-#        print(f'--- Guristas Anomaly Search: {datetime.now().timestamp() - start_time:,.2f} sec.')
-#        next_gate()
 
 
 def next_gate():
@@ -315,13 +298,14 @@ def next_gate():
     print(gate_next_search)
     show_global_timer()
     if gate_next_search:
-        print('- Warping -')
         pyautogui.moveTo(gate_next_search)
-        pyautogui.sleep(0.5)
+#        pyautogui.sleep(0.5)
         pyautogui.click()
         pyautogui.sleep(0.5)
         pyautogui.press('d')
+        print('- Warping -')
         reload_guns()               # Перезарядка пушек
+        pyautogui.moveTo(1000,500, 1)
         pyautogui.sleep(45)
         print('Warp 15 sec left.\n')
         pyautogui.sleep(15)
@@ -338,7 +322,11 @@ def next_gate():
             pyautogui.sleep(60)
         else:
             warp_next_anomaly()
-            next_gate()
+#            next_gate()
+            if pyautogui.locateOnScreen(gate_yellow_png, confidence=0.8):
+                next_gate()
+            else:
+                warp_sun_to_70km()
 
 
 def check_battle():
@@ -349,7 +337,11 @@ def check_battle():
         print('--- Ships Found. Start Battle. ---')
         drones_start()
         lock_enemy_ships()
-#        pyautogui.sleep(3)
+        try:
+            drones_check_hp()
+        except:
+            print('\n\tError Drone HP Function.')
+        pyautogui.sleep(3)
         check_battle()
     else:
         pyautogui.sleep(5)
@@ -358,12 +350,13 @@ def check_battle():
             print('--- Кораблей нет ---')
             drone_in_bay()
             # Тут можно сделать функцию, которая становится в разгон. В то время, пока ждем дронов.
-        print('Wait for Drones - 5 sec.')
-        pyautogui.sleep(5)
+            print('Wait for Drones - 5 sec.')
+            pyautogui.sleep(5)
 
 
 def check_ships():
 #    region_rings_up = (1500, 190, 1560, 400)        # Нужно проверить, что это. Скорее всего Grid
+    # Если нет region, то сканирует весь экран. Если два монитора, то с двух мониторов.
     start_time = datetime.now().timestamp()
 
     frigate_search = pyautogui.locateOnScreen(frigate_red_png, confidence=0.85)
@@ -382,11 +375,23 @@ def check_ships():
     hp_full_03 = pyautogui.locateOnScreen(hp_full_03_png, confidence=0.85)
     hp_full_04 = pyautogui.locateOnScreen(hp_full_04_png, confidence=0.85)
 
+# TODO:
+#    В данный момент лочит не только корабли, но и вреки.
+#   Заменить картинки на картинки с названиями кораблей.
+#    guristas_search_text_png = pyautogui.locateOnScreen(guristas_text_png, confidence=0.9)
+#    pithior_search_text_png = pyautogui.locateOnScreen(frigate_guristas_pithior_text_png, confidence=0.9)
+#    pithis_search_text_png = pyautogui.locateOnScreen(frigate_guristas_pithis_text_png, confidence=0.9)
+
+#    tower_search_text_png = pyautogui.locateOnScreen(tower_text_png, confidence=0.9)
+
     if frigate_search or frigate_search_box_red or frigate_search_box_yellow \
         or destroyer_search or destroyer_search_box_red \
         or cruiser_search or cruiser_search_red_box\
         or tower_search or tower_search_red_box\
         or hp_full_02 or hp_full_03 or hp_full_04:
+# Нужно заменить картинки с текстом, на полное название корабля или башни.
+#        or guristas_search_text_png or pithior_search_text_png or pithis_search_text_png\
+#        or tower_search_text_png:
         print('- Ship Find')
         print(f'Check ships All Screen: {datetime.now().timestamp() - start_time:,.2f} sec.')
         return True
@@ -413,7 +418,9 @@ def start__green_anomaly():
     # Start Green Anomaly.
 #    warp_next_anomaly()
     warp_green_anomaly_context_menu()
-    check_battle()
+    check_ship_in_warp_or_not()                     # Test Need. Проверка или корабль находится в warp
+    if check_battle():
+        check_battle()
     if check_anomaly():
         print('- Следующая аномалия -')
         drone_in_bay()                              # На всякий пожарный еще раз собрать дронов
@@ -429,8 +436,6 @@ try:
 except:
     print('Error')
     input('Press key to exit.')
-#mouse_position()
-#screen_shoot()
 
 
 print('--- End Script ---')

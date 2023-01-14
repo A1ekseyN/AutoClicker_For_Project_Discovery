@@ -12,7 +12,7 @@ def start_script_timer():
     pyautogui.sleep(1)
     print('- 1 sec.')
     pyautogui.sleep(1)
-    print('Start')
+    print('Start\n')
 
 
 def mouse_position():

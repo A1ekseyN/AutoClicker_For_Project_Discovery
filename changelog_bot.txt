@@ -1,3 +1,49 @@
+Version: 0.0.1yf
+- Add Drone Check HP timer
+
+Version: 0.0.1ye
+- HotFix
+
+Version: 0.0.1yd
+- HotFix
+
+Version: 0.0.1yc
+- HotFix
+
+Vesrion: 0.0.1yb
+- HotFix
+
+Version: 0.0.1ya
+- Add text of enemy on green anomaly (Guristas)
+- Add in Check ships - name text of Guristas enemys
+
+Version: 0.0.1xe
+- Small changes
+
+Version: 0.0.1xd (Fix)
+- Warp fix
+
+Version: 0.0.1xc (Fix)
+- Drone Fix
+
+Version: 0.0.1xb (Fix)
+- Add Try/Exept
+- Fix Drones
+- Fix Check Warp, and text
+
+Version: 0.0.1xa (Hot Fix)
+- Drone fix
+- Warping check change text.
+
+
+Version: 0.0.1x
+- Change wapr buttons and print algoritm
+- Add back Drone with Low Shield
+- Change 'gate_yellow.png' image
+- Add Warp to Sun in 70 km option, when and Gates.
+- Add Check Ship in Warp or not
+
+
 Version: 0.0.1wh
 - Fix
 
