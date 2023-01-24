@@ -6,3 +6,7 @@ def global_timer_sec_to_minutes(x):
         minutes = x // 60
         sec = x % 60
         return f'{round(minutes)} minutes {round(sec)} sec.'
+    elif x > 3600:
+        hrs = round(x // 3600)
+        minutes = round((x % 3600) / 60)
+        return f'{hrs} hours {minutes} minutes.'

@@ -1,5 +1,5 @@
-# Version 0.0.1yf
-print('Version: 0.0.1yf')
+# Version 0.0.1yh
+print('Version: 0.0.1yh')
 
 
 import os
@@ -229,7 +229,7 @@ def warp_next_anomaly():
         pyautogui.moveTo(anomaly_search)
         pyautogui.sleep(0.5)
         pyautogui.click()
-#        pyautogui.sleep(40)
+        pyautogui.sleep(3)
 
         while check_ships() == None:
             pyautogui.sleep(10)
@@ -239,7 +239,7 @@ def warp_next_anomaly():
             if cnt == 6:
                 print('-- Break Warp !!! ---')
                 break
-#        print('Landing...\n')
+        print('Landing...\n')
     else:
         print('\n- No anomalies in space.')
         pyautogui.sleep(1)
@@ -306,9 +306,12 @@ def next_gate():
         print('- Warping -')
         reload_guns()               # Перезарядка пушек
         pyautogui.moveTo(1000,500, 1)
-        pyautogui.sleep(45)
-        print('Warp 15 sec left.\n')
+        pyautogui.sleep(30)
+        print('Warp - 30 sec left.')
         pyautogui.sleep(15)
+        print('Warp - 15 sec left.\n')
+        pyautogui.sleep(15)
+        start_green_anomaly()
     else:
         pyautogui.sleep(1)
         go_in_gate_button = pyautogui.locateOnScreen(go_in_gate_png, confidence=0.7)    # Меньше confidence
@@ -341,12 +344,12 @@ def check_battle():
             drones_check_hp()
         except:
             print('\n\tError Drone HP Function.')
-        pyautogui.sleep(3)
+        pyautogui.sleep(1)
         check_battle()
     else:
         pyautogui.sleep(5)
         if check_ships() == None:
-            pyautogui.sleep(0.5)
+#            pyautogui.sleep(0.5)
             print('--- Кораблей нет ---')
             drone_in_bay()
             # Тут можно сделать функцию, которая становится в разгон. В то время, пока ждем дронов.
@@ -414,7 +417,7 @@ def check_anomaly():
 def show_global_timer():
     print(f'\n--- Global Timer: {global_timer_sec_to_minutes(datetime.now().timestamp() - start_time_global)}')
 
-def start__green_anomaly():
+def start_green_anomaly():
     # Start Green Anomaly.
 #    warp_next_anomaly()
     warp_green_anomaly_context_menu()
@@ -424,19 +427,21 @@ def start__green_anomaly():
     if check_anomaly():
         print('- Следующая аномалия -')
         drone_in_bay()                              # На всякий пожарный еще раз собрать дронов
-        start__green_anomaly()
+        start_green_anomaly()
     if check_anomaly() == False:
         next_gate()
-    start__green_anomaly()
+        drone_in_bay()
+    start_green_anomaly()
 
 
 # Start Green Anomaly.
 try:
-    start__green_anomaly()
+    start_green_anomaly()
 except:
     print('Error')
     input('Press key to exit.')
 
 
 print('--- End Script ---')
+print(f'\n--- Global Timer: {global_timer_sec_to_minutes(datetime.now().timestamp() - start_time_global)}')
 a = input('Prees any key to exit.')

@@ -8,7 +8,8 @@ def drones_start():
     pyautogui.sleep(0.2)
     pyautogui.keyDown('shift')
     pyautogui.press('f')
-    pyautogui.sleep(0.3)
+    pyautogui.press('п')
+    pyautogui.sleep(0.2)
     pyautogui.keyUp('shift')
 
 
@@ -16,7 +17,8 @@ def drone_in_bay():
     print('--- Drones in bay ---')
     pyautogui.keyDown('shift')
     pyautogui.press('r')
-    pyautogui.sleep(0.3)
+    pyautogui.press('к')
+    pyautogui.sleep(0.2)
     pyautogui.keyUp('shift')
 
 
@@ -31,4 +33,4 @@ def drones_check_hp():
         drone_back_icon = pyautogui.locateOnScreen(drone_back_icon_png, confidence=0.95)
         pyautogui.click(drone_back_icon)
         print(f'Drone Low HP check: {round(datetime.now().timestamp() - start_time):,.2f} sec.')
-    print(f'Drone check HP: {round(datetime.now().timestamp() - start_time):,.2f} sec.')
+    print(f'Drone check HP: {round(datetime.now().timestamp() - start_time, 2):,.2f} sec.')

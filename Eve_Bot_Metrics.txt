@@ -1,6 +1,9 @@
 ### Метрики времени на прохождение аномалек ###
 
 # Time for anomaly:
+Version: 0.0.1g
+# Убежище Guristas -2:38 (Gnosis - Alpha) (30 секунд стоит после аномальки.
+
 # Version 0.0.1xc
 # Укрытие Gurista - 3:02 (Gnosis)
 # Убежище Gurista - 3:05 (Gnosis)

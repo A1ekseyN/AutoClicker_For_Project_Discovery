@@ -1,5 +1,16 @@
-Version: 0.0.1yf
+Version: 0.0.1yh
+- Drone Check Timer. Show 0.00 sec
+- Add Hours view in Global timer
+- Add Drones in bay, after warp in the next gate
+- Search Cruiser Icon smaller
+- Add rus symbols in Drone Start & Drone In Bay functions
+
+
+Version: 0.0.1yg
 - Add Drone Check HP timer
+- Sleep 10 after start warping
+- After Gate Warp start_green_anomaly() from beginning
+
 
 Version: 0.0.1ye
 - HotFix
