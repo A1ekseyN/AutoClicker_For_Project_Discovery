@@ -1,3 +1,25 @@
+Version: 0.0.1zb (HotFix)
+- HotFix mouse move
+- Add coordinates, after target locking. To see enemy.
+
+
+Version: 0.0.1za
+Date: 24.01.2023
+- Add move mouse after lock targets
+- Add sun landing time report
+
+
+Version: 0.0.1z
+- Optimization timer: delete sleep 5 sec, when no ships
+- Main cycle make while, not recursion
+- Add while Cycle
+- Add additional press f1, when search frigate
+- Add additional press f1, when search destroyer
+- Add additional press f1, when search cruiser
+- Add additional press f1, when search tower
+- Back Drone before Next Gate
+
+
 Version: 0.0.1yh
 - Drone Check Timer. Show 0.00 sec
 - Add Hours view in Global timer

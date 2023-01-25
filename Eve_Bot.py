@@ -1,5 +1,5 @@
-# Version 0.0.1yh
-print('Version: 0.0.1yh')
+# Version 0.0.1zb
+print('Version: 0.0.1zb')
 
 
 import os
@@ -40,7 +40,7 @@ def lock_enemy_ships():
     start_time = datetime.now().timestamp()
     if check_ships():
         region = (1500,170, 60,210)
-        pyautogui.sleep(0.2)
+        pyautogui.sleep(0.1)
         frigate_search = pyautogui.locateAllOnScreen(frigate_red_png, confidence=0.85, region=region)
         if frigate_search:
             for frigate in frigate_search:
@@ -49,6 +49,7 @@ def lock_enemy_ships():
                 pyautogui.click(frigate)
                 lock_ship_ctrl_click()
             pyautogui.press('f')
+            pyautogui.press('f1')
 
         frigate_search_box_red = pyautogui.locateAllOnScreen(frigate_red_box_red_png, confidence=0.85, region=region)
         if frigate_search_box_red:
@@ -74,6 +75,8 @@ def lock_enemy_ships():
                 pyautogui.click(destroyer)
                 pyautogui.click(destroyer)
                 lock_ship_ctrl_click()
+                pyautogui.press('f')
+                pyautogui.press('f1')
 
         destroyer_search_box_red = pyautogui.locateAllOnScreen(destroyer_red_box_png, confidence=0.85, region=region)
         if destroyer_search_box_red:
@@ -91,6 +94,7 @@ def lock_enemy_ships():
                 pyautogui.click(cruiser)
                 lock_ship_ctrl_click()
             pyautogui.press('f')
+            pyautogui.press('f1')
 
         cruiser_search_box_red = pyautogui.locateAllOnScreen(cruiser_red_box_red_png, confidence=0.85, region=region)
         if cruiser_search_box_red:
@@ -107,6 +111,8 @@ def lock_enemy_ships():
                 pyautogui.click(tower)
                 pyautogui.click(tower)
                 lock_ship_ctrl_click()
+                pyautogui.press('f')
+                pyautogui.press('f1')
 
         pyautogui.press('f')
         tower_search_box_red = pyautogui.locateAllOnScreen(tower_red_box_png, confidence=0.85, region=region)
@@ -116,13 +122,17 @@ def lock_enemy_ships():
                 pyautogui.click(tower)
                 pyautogui.click(tower)
                 lock_ship_ctrl_click()
+
         pyautogui.press('f')
         print(f'Locking ships: {datetime.now().timestamp() - start_time:,.2f} sec.')
         search_enemy_ships_pictograms()
+        mouse_position_x = pyautogui.position()[0] - 25
+        mouse_position_y = pyautogui.position()[1] + 5
+        pyautogui.moveTo(mouse_position_x, mouse_position_y, 0.2)
     else:
         print(f'Locking ships: {datetime.now().timestamp() - start_time:,.2f} sec.')
         print('- Ships not found')
-        pyautogui.sleep(1)
+        pyautogui.sleep(0.2)
 
 
 def search_enemy_ships_pictograms():
@@ -336,8 +346,9 @@ def check_battle():
     # Проверка или корабль находится в битве.
     print('\n--- Check Battle status ---')
     pyautogui.click(1000, 500)
-    if check_ships():
-        print('--- Ships Found. Start Battle. ---')
+    while check_ships():
+#    if check_ships():
+        print('\n--- Ships Found. Start Battle. ---')
         drones_start()
         lock_enemy_ships()
         try:
@@ -345,9 +356,10 @@ def check_battle():
         except:
             print('\n\tError Drone HP Function.')
         pyautogui.sleep(1)
-        check_battle()
+        continue
+#        check_battle()d
     else:
-        pyautogui.sleep(5)
+#        pyautogui.sleep(5)
         if check_ships() == None:
 #            pyautogui.sleep(0.5)
             print('--- Кораблей нет ---')
@@ -414,24 +426,31 @@ def check_anomaly():
         print('- Аномалий больше нет. -')
         return False
 
+
 def show_global_timer():
     print(f'\n--- Global Timer: {global_timer_sec_to_minutes(datetime.now().timestamp() - start_time_global)}')
+
 
 def start_green_anomaly():
     # Start Green Anomaly.
 #    warp_next_anomaly()
-    warp_green_anomaly_context_menu()
-    check_ship_in_warp_or_not()                     # Test Need. Проверка или корабль находится в warp
-    if check_battle():
-        check_battle()
-    if check_anomaly():
-        print('- Следующая аномалия -')
-        drone_in_bay()                              # На всякий пожарный еще раз собрать дронов
-        start_green_anomaly()
-    if check_anomaly() == False:
-        next_gate()
-        drone_in_bay()
-    start_green_anomaly()
+    while True:
+        warp_green_anomaly_context_menu()
+        check_ship_in_warp_or_not()                     # Test Need. Проверка или корабль находится в warp
+        while check_battle():
+            continue
+#        if check_battle():
+#            check_battle()
+        if check_anomaly():
+            print('- Следующая аномалия -')
+            drone_in_bay()                              # На всякий пожарный еще раз собрать дронов
+            continue
+#            start_green_anomaly()
+        elif check_anomaly() == False:
+            drone_in_bay()
+            next_gate()
+        continue
+#        start_green_anomaly()
 
 
 # Start Green Anomaly.

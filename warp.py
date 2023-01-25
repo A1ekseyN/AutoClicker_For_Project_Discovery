@@ -1,5 +1,6 @@
 import pyautogui
-
+from datetime import datetime, timedelta
+from functions import global_timer_sec_to_minutes
 from pictures import sun_png, warp_anomaly_0_png, warp_to_70_png, warping_png, speed_0_png
 
 
@@ -28,15 +29,17 @@ def warp_sun_to_70km():
         pyautogui.click(pyautogui.locateOnScreen(warp_to_70_png, confidence=0.9))
         print('\n--- Sun 70 km warping ---')
         pyautogui.sleep(60)
-        pyautogui.moveTo(1000,500, 1)
+        pyautogui.moveTo(800,500, 1)
         pyautogui.doubleClick()
 
         # TODO: После того, как корабль прилетел на солнце.
         #  Добавить раз в минуту анализ новых аномалий в системе.
 
-        ask = input('\nShip on sun. To continue, press any key...\n>>> ')
+        start_sun_time = datetime.now().timestamp()
 
+        print(f'- Ship landing in the sun at: {datetime.now()}')
+        ask = input('\nShip on sun. To continue, press any key...\n>>> ')
+        sun_time = datetime.now().timestamp() - start_sun_time
+        print(f'\n- Ship is in the sun {global_timer_sec_to_minutes(sun_time)}.')
     else:
         print('No sun in space.')
-
-#print(check_ship_in_warp_or_not())
