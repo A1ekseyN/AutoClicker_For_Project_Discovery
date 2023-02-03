@@ -6,16 +6,10 @@ from pictures import sun_png, warp_anomaly_0_png, warp_to_70_png, warping_png, s
 
 def check_ship_in_warp_or_not():
     # Проверка находится корабль в варпе или нет.
-#    pyautogui.sleep(5)
     while pyautogui.locateOnScreen(warping_png, confidence=0.9):
         print('Warping...')
         pyautogui.sleep(5)
     print('\nLanding...')
-
-#    if pyautogui.locateOnScreen(warping_png, confidence=0.9):
-#        return True
-#    else:
-#        return False
 
 
 def warp_sun_to_70km():
@@ -29,7 +23,7 @@ def warp_sun_to_70km():
         pyautogui.click(pyautogui.locateOnScreen(warp_to_70_png, confidence=0.9))
         print('\n--- Sun 70 km warping ---')
         pyautogui.sleep(60)
-        pyautogui.moveTo(800,500, 1)
+        pyautogui.moveTo(1200,350, 1)
         pyautogui.doubleClick()
 
         # TODO: После того, как корабль прилетел на солнце.

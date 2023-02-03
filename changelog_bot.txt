@@ -1,3 +1,29 @@
+Version: 0.0.1zi (HotFix)
+- HotFix
+
+Version: 0.0.1zh
+- Off Dread Guristas Loot
+- Change anomaly priority to: Den, Refuge, Hideaway
+- Change region of ships locking. From 60, to 100 px
+- Add sleep 1 sec, after ships locking.
+- Add hotkeys.py file
+
+Version: 0.0.1zg
+- Do images for opencv smaller, and delete borders
+
+Version: 0.0.1zf
+- Delete double check ships, when no enemy in space.
+
+Version: 0.0.1ze
+- Small Fixes
+
+Version: 0.0.1zd (HotFix)
+- HotFix
+
+Version: 0.0.1zc
+- Add Dread Guristas Looting system
+
+
 Version: 0.0.1zb (HotFix)
 - HotFix mouse move
 - Add coordinates, after target locking. To see enemy.

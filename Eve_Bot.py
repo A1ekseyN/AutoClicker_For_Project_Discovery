@@ -1,5 +1,5 @@
-# Version 0.0.1zb
-print('Version: 0.0.1zb')
+# Version 0.0.1zh
+print('Version: 0.0.1zh')
 
 
 import os
@@ -9,6 +9,8 @@ from datetime import datetime, timedelta
 from drones import *
 from functions import *
 from functions_developer import start_script_timer
+from hotkeys import *
+from looting import *
 from pictures import *
 from settings import *
 from warp import *
@@ -19,27 +21,13 @@ from warp import *
 start_script_timer()
 
 start_time_global = datetime.now().timestamp()
-
-
-def lock_ship_ctrl_click():
-    # Lock в прицел корабля
-    pyautogui.press('ctrl')
-    pyautogui.click()
-
-
-def reload_guns():
-    print('Reloading Guns.')
-    pyautogui.keyDown('ctrl')
-    pyautogui.sleep(0.1)
-    pyautogui.press('r')
-    pyautogui.sleep(0.1)
-    pyautogui.keyUp('ctrl')
+anomaly_counter = 0                                                 # Нужно менять под Global переменную.
 
 
 def lock_enemy_ships():
     start_time = datetime.now().timestamp()
     if check_ships():
-        region = (1500,170, 60,210)
+        region = (1500,170, 100,210)
         pyautogui.sleep(0.1)
         frigate_search = pyautogui.locateAllOnScreen(frigate_red_png, confidence=0.85, region=region)
         if frigate_search:
@@ -129,6 +117,7 @@ def lock_enemy_ships():
         mouse_position_x = pyautogui.position()[0] - 25
         mouse_position_y = pyautogui.position()[1] + 5
         pyautogui.moveTo(mouse_position_x, mouse_position_y, 0.2)
+        pyautogui.sleep(0.5)
     else:
         print(f'Locking ships: {datetime.now().timestamp() - start_time:,.2f} sec.')
         print('- Ships not found')
@@ -283,19 +272,19 @@ def warp_green_anomaly_context_menu():
     guristas_den = pyautogui.locateOnScreen(guristas_den_name_png, confidence=0.9)
     guristas_den_new = pyautogui.locateOnScreen(guristas_den_name_new_png, confidence=0.9)
 
-    guristas_anomalies = [guristas_hideaway, guristas_hideaway_new,
+    guristas_anomalies = [guristas_den, guristas_den_new,
                           guristas_refuge, guristas_refuge_new,
-                          guristas_den, guristas_den_new]
+                          guristas_hideaway, guristas_hideaway_new]
 
     for anomaly in guristas_anomalies:
         if anomaly:
             print(anomaly)
+#            anomaly_counter += 1
             pyautogui.moveTo(anomaly)
             warp_anomaly_context_menu()
-#            print('\nWait 10 sec after start warping.')
-#            pyautogui.sleep(10)
             break
     print(f'--- Guristas Anomaly Search: {datetime.now().timestamp() - start_time:,.2f} sec.')
+#    print(f'--- Total find anomalies: {anomaly_counter}.')
     if not anomaly:
         next_gate()
 
@@ -306,7 +295,8 @@ def next_gate():
     pyautogui.press('d')
     gate_next_search = pyautogui.locateOnScreen(gate_yellow_png, confidence=0.8)    #0.8
     print(gate_next_search)
-    show_global_timer()
+    show_global_timer()                 # Показывает общее время работы скрипта.
+#    print(f'--- Total find anomalies: {anomaly_counter}.')
     if gate_next_search:
         pyautogui.moveTo(gate_next_search)
 #        pyautogui.sleep(0.5)
@@ -357,16 +347,14 @@ def check_battle():
             print('\n\tError Drone HP Function.')
         pyautogui.sleep(1)
         continue
-#        check_battle()d
+#        check_battle()
     else:
-#        pyautogui.sleep(5)
-        if check_ships() == None:
-#            pyautogui.sleep(0.5)
-            print('--- Кораблей нет ---')
-            drone_in_bay()
-            # Тут можно сделать функцию, которая становится в разгон. В то время, пока ждем дронов.
-            print('Wait for Drones - 5 sec.')
-            pyautogui.sleep(5)
+#        if check_ships() == None:                      # Изначально использовал дополнительную проверку. Но, вроде, она ничего не делает.
+        print('--- Кораблей нет ---')
+        drone_in_bay()
+        # Тут можно сделать функцию, которая становится в разгон. В то время, пока ждем дронов.
+        print('Wait for Drones - 5 sec.')
+        pyautogui.sleep(5)
 
 
 def check_ships():
@@ -433,12 +421,12 @@ def show_global_timer():
 
 def start_green_anomaly():
     # Start Green Anomaly.
-#    warp_next_anomaly()
     while True:
         warp_green_anomaly_context_menu()
         check_ship_in_warp_or_not()                     # Test Need. Проверка или корабль находится в warp
         while check_battle():
             continue
+        check_dread_guristas_loot()                     # Собрать Dread Guristas Loot.
 #        if check_battle():
 #            check_battle()
         if check_anomaly():
@@ -453,14 +441,15 @@ def start_green_anomaly():
 #        start_green_anomaly()
 
 
-# Start Green Anomaly.
+# Start Green Anomaly for Alpha (Rockets + Drones).
 try:
     start_green_anomaly()
 except:
     print('Error')
-    input('Press key to exit.')
+    print(f'\n--- Global Timer: {global_timer_sec_to_minutes(datetime.now().timestamp() - start_time_global)}')
+    a = input('Press key to exit.\n>>> ')
 
 
 print('--- End Script ---')
 print(f'\n--- Global Timer: {global_timer_sec_to_minutes(datetime.now().timestamp() - start_time_global)}')
-a = input('Prees any key to exit.')
+a = input('Press any key to exit.')

@@ -1,3 +1,5 @@
+import keyboard
+
 from pictures import *
 import pyautogui
 from datetime import datetime, timedelta
@@ -26,3 +28,10 @@ pyautogui.moveTo(a, b, 0.2)
 
 print(datetime.now())
 print(datetime.now().timestamp() - start_time)
+
+keyboard.wait('p')
+cnt = 0
+while True:
+    cnt += 1
+    pyautogui.sleep(1)
+    print(cnt)
