@@ -73,6 +73,12 @@ abyss_filament_exotic_t0_icon_png = 'pics_bot/abyss/filament_exotic_t0.png'
 abyss_gate_icon_png = 'pics_bot/abyss/abyss_gate_icon.png'
 abyss_activate_for_fleet = 'pics_bot/abyss/activate_for_fleet.png'
 
+# Maps and Systems
+icon_map_search_png = 'pics_bot/maps/icon_map_search.png'
+icon_solar_system_png = 'pics_bot/maps/icon_solar_system.png'
+icon_add_waypoint_png = 'pics_bot/maps/add_waypoint.png'
+icon_set_route_png = 'pics_bot/maps/set_route.png'
+
 
 #abyss_container_png = 'pics_bot/abyss_conteiner.png'
 

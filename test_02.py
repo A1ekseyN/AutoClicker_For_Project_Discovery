@@ -29,9 +29,7 @@ pyautogui.moveTo(a, b, 0.2)
 print(datetime.now())
 print(datetime.now().timestamp() - start_time)
 
-keyboard.wait('p')
-cnt = 0
-while True:
-    cnt += 1
-    pyautogui.sleep(1)
-    print(cnt)
+
+region = (100, 100, 1000, 800)
+#screen = pyautogui.screenshot(region=region)
+screen = pyautogui.screenshot('test.png', region=region)

@@ -1,5 +1,5 @@
-# Version 0.0.1zh
-print('Version: 0.0.1zh')
+# Version 0.0.2bb
+print('Version: 0.0.2bb')
 
 
 import os
@@ -11,6 +11,7 @@ from functions import *
 from functions_developer import start_script_timer
 from hotkeys import *
 from looting import *
+#from maps import *
 from pictures import *
 from settings import *
 from warp import *
@@ -250,7 +251,7 @@ def warp_anomaly_context_menu():
     pyautogui.click(button='RIGHT')
     pyautogui.sleep(0.2)
     try:
-        pyautogui.locateOnScreen(warp_anomaly_0_png, confidence=0.8)
+        pyautogui.locateOnScreen(warp_anomaly_0_png, confidence=0.75)
         pyautogui.moveTo(warp_anomaly_0_png)
         pyautogui.sleep(0.2)
         pyautogui.click()

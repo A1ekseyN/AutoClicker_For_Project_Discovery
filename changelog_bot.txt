@@ -1,4 +1,20 @@
+Version: 0.0.2bb
+Date: 07.02.2023
+- Reduce confidence in warp in anomaly png file
+
+Version: 0.0.2ba
+- In New Route Generator add Counter, what show progress.
+
+Version: 0.0.2b
+- Add 10 min delay before creating a New Route
+
+Version: 0.0.2a
+- Add Route Creation System for Caldary Space. With 36 space systems
+- Add icons for search solar system on map
+
+
 Version: 0.0.1zi (HotFix)
+Date: 03.02.2023
 - HotFix
 
 Version: 0.0.1zh
