@@ -3,6 +3,11 @@ import pyautogui
 import cv2
 import os
 import numpy as np
+from tqdm import tqdm
+
+
+db = []
+start_time = time.time()
 
 
 def get_screenshot():
@@ -65,7 +70,7 @@ def get_solar_system_and_depot_count(screen_image, images_folder='images/solar_s
             result = cv2.matchTemplate(cv2.cvtColor(screen_image, cv2.COLOR_BGR2GRAY), depot_image, cv2.TM_CCOEFF_NORMED)
             _, max_val, _, max_loc = cv2.minMaxLoc(result)
 
-    print(f"System: {system_name}: {depot_cnt} [{time.time() - solar_check_time:,.2f} sec]")
+    print(f"\nSystem: {system_name}: {depot_cnt} [{time.time() - solar_check_time:,.2f} sec]")
     return system_name, depot_cnt
 
 
@@ -96,16 +101,16 @@ def warp_to_depot():
         _, max_val, _, max_loc = cv2.minMaxLoc(result)
 
         if max_val > 0.95:
-            print(f"Sleep 5 sec")
-            time.sleep(5)
+            time.sleep(0.1)
             top_left = max_loc
             pyautogui.moveTo(top_left[0] + warp_icon.shape[1] // 2, top_left[1] + warp_icon.shape[0] // 2)
             time.sleep(0.1)
             pyautogui.click()
             print(f"Warp to Depot")
+            time.sleep(0.3)
+            pyautogui.move(-12, -22)  # Перемещение курсора на 25 пикселей вверх
             return True
     return False
-
 
 
 def warp_to_next_system():
@@ -152,10 +157,40 @@ def check_warping_status():
 
         if max_val > 0.95:
             print("Ship is still warping, waiting...")
-            time.sleep(5)
+            time.sleep(10)
         else:
             print("Ship has exited warp")
             break
+
+
+def check_warping_to_next_gate():
+    """Функция для проверки статуса корабля, при варпе на слеующие ворота (в варпе или нет)"""
+    warping_icon_path = 'images/icons/warp_speed_zero.png'
+    warping_icon = cv2.imread(warping_icon_path)
+
+    # Проверку на загрузку картинки можно убрать, если картинка правильно загружается
+    if warping_icon is None:
+        print(f"Error: Unable to load image at {warping_icon_path}")
+        return
+
+    attempts = 0
+    max_attempts = 100  # Максимальное количество попыток, чтобы избежать бесконечного цикла
+
+    while attempts < max_attempts:
+        screen_image = get_screenshot()
+        result = cv2.matchTemplate(screen_image, warping_icon, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, _ = cv2.minMaxLoc(result)
+
+        if max_val > 0.95:
+            print("Ship has exited warp")
+            break
+        else:
+            print("Ship is still warping, waiting...")
+            time.sleep(10)
+            attempts += 1
+
+    if attempts == max_attempts:
+        print("Warning: Reached maximum attempts to check warp status. Exiting the loop.")
 
 
 def lock_on_depot():
@@ -178,26 +213,69 @@ def lock_on_depot():
         time.sleep(3)
         pyautogui.press('f1')
         print("Pressed F1")
+        time.sleep(0.1)
         return True
     else:
         print("Depot icon not found")
         return False
 
 
+def update_system_db(system_name, depot_cnt):
+    """Function to update the system_db with system_name and depot_cnt."""
+    global db
+
+    # Check if the system_name already exists in system_db
+    for system_info in db:
+        if system_info['system_name'] == system_name:
+            # Update depot count if the system already exists
+            system_info['depot_cnt'] = depot_cnt
+            return
+
+    # If system_name is not found, add it to system_db
+    db.append({'system_name': system_name, 'depot_cnt': depot_cnt})
+
+    # Optionally, print or log the update
+    print(f"System updated: {system_name}: {depot_cnt}")
+    print(', '.join(f"{entry['system_name']}: {entry['depot_cnt']}" for entry in db))
+
+
+def sleep_with_progress(seconds):
+    """Функция задержки с визуализацией через tqdm."""
+    for _ in tqdm(range(seconds), desc="Sleeping", ncols=100, colour="green"):
+        time.sleep(1)
+
+
 # Пример использования:
+print(f"Start after 3 seconds")
 time.sleep(3)
 
 # Делаем скриншот экрана
-screen_image = get_screenshot()
+while True:
+    screen_image = get_screenshot()
 
-# Получаем название системы и количество Depot
-system_name, depot_cnt = get_solar_system_and_depot_count(screen_image)
+    # Получаем название системы и количество Depot
+    system_name, depot_cnt = get_solar_system_and_depot_count(screen_image)
 
-# Проверяем и перемещаемся к депо. Если депо в системе нет, тогда переходим в следующую систему.
-if depot_cnt > 0:
-    warp_to_depot()
-    check_warping_status()
-    lock_on_depot()
-else:
+    # Update system_db with current system info
+    update_system_db(system_name, depot_cnt)
+
+    # Проверяем и перемещаемся к депо. Если депо в системе нет, тогда переходим в следующую систему.
+#    while depot_cnt > 0:
+    # Проверка на количество Depot в системе.
+    for _ in range(depot_cnt):
+#    if depot_cnt > 0:
+        depot_cnt -= 1
+        warp_to_depot()
+        print(f"Sleep 20 sec")
+        sleep_with_progress(20)
+#        time.sleep(20)
+        check_warping_status()
+        lock_on_depot()
+        print(f"Depots: {depot_cnt}\n")
+
+#    else:
     warp_to_next_system()
-    check_warping_status()
+    print(f"Sleep 45 sec.\n")
+    sleep_with_progress(45)
+#    time.sleep(45)
+    check_warping_to_next_gate()
