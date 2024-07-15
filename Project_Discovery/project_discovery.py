@@ -216,7 +216,7 @@ def project_discovery(counter, isk_per_task, task_time_one, character, data, sta
         # Конец цикла и одного задания Project Discovery
         elapsed_time = time.time() - start_time
         print(f"Осталось: {counter - 1} циклов. "
-              f"Заработано ISK: {earned_isk:,.0f} ISK."
+              f"Заработано ISK: {earned_isk:,.0f} ISK. (Pause: F3)"
               f"\nВремя выполнения скрипта: {elapsed_time:,.2f} сек. "
               f"Оставшееся время: {remaining_time:.2f} секунд.\n")
 
