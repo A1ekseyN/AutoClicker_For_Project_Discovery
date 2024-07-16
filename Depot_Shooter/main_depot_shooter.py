@@ -142,7 +142,63 @@ def warp_to_next_system():
             pyautogui.click()
             print("Warp to next system")
             return True
-    return False
+    else:
+        warp_in_dock()
+#        return False
+
+
+def warp_in_dock():
+    """Функция для варпа на док (желтый или белый)"""
+    dock_yellow_icon_path = 'images/icons/dock_yellow.png'
+    dock_white_icon_path = 'images/icons/dock_white.png'
+    dock_icon_path = 'images/icons/dock_icon.png'
+    screen_image = get_screenshot()
+
+    # Ищем иконку dock_yellow
+    dock_yellow_icon = cv2.imread(dock_yellow_icon_path)
+    result = cv2.matchTemplate(screen_image, dock_yellow_icon, cv2.TM_CCOEFF_NORMED)
+    _, max_val, _, max_loc = cv2.minMaxLoc(result)
+
+    if max_val > 0.95:
+        top_left = max_loc
+        pyautogui.moveTo(top_left[0] + dock_yellow_icon.shape[1] // 2, top_left[1] + dock_yellow_icon.shape[0] // 2)
+        time.sleep(0.1)
+        pyautogui.click()
+        print("Dock at yellow icon")
+    else:
+        # Иконка dock_yellow не найдена, ищем иконку dock_white
+        dock_white_icon = cv2.imread(dock_white_icon_path)
+        result = cv2.matchTemplate(screen_image, dock_white_icon, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(result)
+
+        if max_val > 0.95:
+            top_left = max_loc
+            pyautogui.moveTo(top_left[0] + dock_white_icon.shape[1] // 2, top_left[1] + dock_white_icon.shape[0] // 2)
+            time.sleep(0.1)
+            pyautogui.click()
+            print("Dock at white icon")
+        else:
+            print("No dock icons found")
+            return False
+
+    # После клика по иконке дока, ищем иконку dock_icon.png
+    time.sleep(0.2)
+    screen_image = get_screenshot()
+    dock_icon = cv2.imread(dock_icon_path)
+    result = cv2.matchTemplate(screen_image, dock_icon, cv2.TM_CCOEFF_NORMED)
+    _, max_val, _, max_loc = cv2.minMaxLoc(result)
+
+    if max_val > 0.95:
+        top_left = max_loc
+        pyautogui.moveTo(top_left[0] + dock_icon.shape[1] // 2, top_left[1] + dock_icon.shape[0] // 2)
+        time.sleep(0.1)
+        pyautogui.click()
+        print("Route End.")
+        time.sleep(3600)
+        return True
+    else:
+        print("Dock icon not found after initial dock click")
+        return False
 
 
 def check_warping_status():
