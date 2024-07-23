@@ -1,3 +1,6 @@
+Version: 0.0.1d
+- Added script for twisting gallente beacons.
+
 Version: 0.0.1c
 - Added the ability to enter the dock after the end of the route
 
